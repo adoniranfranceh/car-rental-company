@@ -1,0 +1,37 @@
+-- SQLite
+-- Funcionários que realizaram 2 ou mais locações
+
+SELECT LOCATIONS.EMPLOYEE_ID AS 'Código do funcionário',
+       E.NAME AS 'Funcionário',
+       COUNT(LOCATIONS.EMPLOYEE_ID) AS 'Quantidade de locações'
+    FROM LOCATIONS
+    INNER JOIN EMPLOYEES AS E ON (LOCATIONS.EMPLOYEE_ID = E.ID)
+    GROUP BY LOCATIONS.EMPLOYEE_ID
+    HAVING COUNT(LOCATIONS.EMPLOYEE_ID) >= 2;
+
+
+
+-- Clientes que realizaram 2 ou mais locações
+
+SELECT LOCATIONS.CUSTOMER_ID AS 'Código do Cliente',
+        C.NAME AS 'Cliente',
+        COUNT(LOCATIONS.CUSTOMER_ID) AS 'Quantidade de locações'
+    FROM LOCATIONS
+    INNER JOIN CUSTOMERS AS C ON (LOCATIONS.CUSTOMER_ID = C.ID)
+    GROUP BY LOCATIONS.CUSTOMER_ID
+    HAVING COUNT(LOCATIONS.CUSTOMER_ID) >= 2;
+
+
+
+
+-- Exibindo Locações (LOCATIONS)
+
+SELECT START_DATE AS 'Data de início',
+       END_DATE AS 'Data final',
+       TOTAL 'Total', 
+       CUSTOMERS.NAME AS 'Cliente',
+       CARS.NAME 'Carro',
+       EMPLOYEES.NAME AS 'Funcionário 'FROM LOCATIONS
+    JOIN CUSTOMERS ON (LOCATIONS.CUSTOMER_ID = CUSTOMERS.ID)
+    JOIN CARS ON (LOCATIONS.CAR_ID = CARS.ID)
+    JOIN EMPLOYEES ON (LOCATIONS.EMPLOYEE_ID = EMPLOYEES.ID);
